@@ -1,0 +1,230 @@
+{
+  "app": {
+    "name": "FinFit",
+    "version": "1.0.0",
+    "description": "Personal Finance Management Application",
+    "author": "FinFit Team",
+    "homepage": "https://finfit.vercel.app",
+    "repository": "https://github.com/username/finfit-expense-tracker"
+  },
+  "api": {
+    "baseUrl": "/api",
+    "endpoints": {
+      "expenses": "/api/expenses",
+      "budgets": "/api/budgets",
+      "analytics": "/api/analytics/summary"
+    },
+    "version": "v1"
+  },
+  "database": {
+    "type": "memory",
+    "fallback": "postgresql",
+    "tables": {
+      "expenses": {
+        "fields": ["id", "description", "amount", "category", "date", "notes", "createdAt"],
+        "required": ["description", "amount", "category", "date"]
+      },
+      "budgets": {
+        "fields": ["id", "amount", "month", "createdAt"],
+        "required": ["amount", "month"]
+      }
+    }
+  },
+  "categories": [
+    {
+      "id": "food",
+      "label": "Food & Dining",
+      "icon": "utensils",
+      "color": "#10B981"
+    },
+    {
+      "id": "transport",
+      "label": "Transportation",
+      "icon": "car",
+      "color": "#3B82F6"
+    },
+    {
+      "id": "entertainment",
+      "label": "Entertainment",
+      "icon": "film",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": "utilities",
+      "label": "Utilities",
+      "icon": "zap",
+      "color": "#F59E0B"
+    },
+    {
+      "id": "shopping",
+      "label": "Shopping",
+      "icon": "shopping-bag",
+      "color": "#EC4899"
+    },
+    {
+      "id": "healthcare",
+      "label": "Healthcare",
+      "icon": "heart",
+      "color": "#EF4444"
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "icon": "more-horizontal",
+      "color": "#6B7280"
+    }
+  ],
+  "ui": {
+    "theme": {
+      "primary": "#10B981",
+      "secondary": "#F3F4F6",
+      "accent": "#3B82F6",
+      "background": "#FFFFFF",
+      "surface": "#F9FAFB",
+      "text": {
+        "primary": "#1F2937",
+        "secondary": "#6B7280",
+        "muted": "#9CA3AF"
+      }
+    },
+    "layout": {
+      "maxWidth": "7xl",
+      "padding": {
+        "mobile": "4",
+        "desktop": "8"
+      },
+      "borderRadius": "xl",
+      "shadow": "sm"
+    },
+    "components": {
+      "header": {
+        "height": "16",
+        "background": "white",
+        "shadow": true
+      },
+      "modals": {
+        "maxWidth": "md",
+        "backdrop": "rgba(0, 0, 0, 0.5)"
+      },
+      "cards": {
+        "background": "white",
+        "borderRadius": "xl",
+        "shadow": "sm",
+        "border": "gray-100"
+      }
+    }
+  },
+  "features": {
+    "expenses": {
+      "enabled": true,
+      "crud": true,
+      "filtering": {
+        "byCategory": true,
+        "byDate": true,
+        "byAmount": false
+      },
+      "pagination": {
+        "enabled": true,
+        "itemsPerPage": 10
+      }
+    },
+    "budgets": {
+      "enabled": true,
+      "monthlyBudgets": true,
+      "progressTracking": true,
+      "alerts": false
+    },
+    "analytics": {
+      "enabled": true,
+      "charts": {
+        "categoryBreakdown": {
+          "type": "doughnut",
+          "enabled": true
+        },
+        "monthlyTrend": {
+          "type": "line",
+          "enabled": true,
+          "periods": 6
+        },
+        "budgetComparison": {
+          "type": "bar",
+          "enabled": true
+        }
+      }
+    }
+  },
+  "deployment": {
+    "platform": "vercel",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "installCommand": "npm ci",
+    "environmentVariables": {
+      "required": [],
+      "optional": ["DATABASE_URL", "NODE_ENV"]
+    },
+    "regions": ["iad1", "sfo1"],
+    "runtime": "nodejs20.x"
+  },
+  "development": {
+    "port": 5000,
+    "host": "localhost",
+    "hotReload": true,
+    "typescript": true,
+    "eslint": true,
+    "prettier": true
+  },
+  "dependencies": {
+    "frontend": {
+      "framework": "react@18",
+      "bundler": "vite",
+      "styling": "tailwindcss",
+      "components": "shadcn/ui",
+      "routing": "wouter",
+      "stateManagement": "tanstack/react-query",
+      "charts": "chart.js",
+      "forms": "react-hook-form",
+      "validation": "zod"
+    },
+    "backend": {
+      "runtime": "node.js",
+      "framework": "express",
+      "orm": "drizzle-orm",
+      "database": "postgresql",
+      "validation": "zod"
+    }
+  },
+  "security": {
+    "cors": {
+      "enabled": true,
+      "origins": ["localhost:3000", "*.vercel.app"]
+    },
+    "validation": {
+      "inputSanitization": true,
+      "schemaValidation": true
+    },
+    "headers": {
+      "contentSecurityPolicy": false,
+      "xFrameOptions": true
+    }
+  },
+  "performance": {
+    "caching": {
+      "api": true,
+      "static": true
+    },
+    "compression": true,
+    "bundleOptimization": true,
+    "lazyLoading": false
+  },
+  "monitoring": {
+    "analytics": false,
+    "errorTracking": false,
+    "performance": false,
+    "lighthouse": true
+  },
+  "metadata": {
+    "lastUpdated": "2025-01-22",
+    "configVersion": "1.0",
+    "compatibleVersions": ["1.0.x"]
+  }
+}
